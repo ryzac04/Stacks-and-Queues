@@ -1,3 +1,4 @@
+
 const Queue = require("./queue");
 
 let queue;
@@ -9,14 +10,14 @@ beforeEach(function() {
 describe("enqueue", function() {
   it("places the value at the end of the queue and returns undefined", function() {
     expect(queue.enqueue(10)).toBe(undefined);
-    expect(queue.first.val).toBe(10);
-    expect(queue.last.val).toBe(10);
+    expect(queue._list.front.val).toBe(10);
+    expect(queue._list.rear.val).toBe(10);
     queue.enqueue(100);
-    expect(queue.first.val).toBe(10);
-    expect(queue.last.val).toBe(100);
+    expect(queue._list.front.val).toBe(10);
+    expect(queue._list.rear.val).toBe(100);
     queue.enqueue(1000);
-    expect(queue.first.val).toBe(10);
-    expect(queue.last.val).toBe(1000);
+    expect(queue._list.front.val).toBe(10);
+    expect(queue._list.rear.val).toBe(1000);
   });
 });
 
@@ -27,10 +28,10 @@ describe("dequeue", function() {
     queue.enqueue(1000);
     let removed = queue.dequeue();
     expect(removed).toBe(10);
-    expect(queue.size).toBe(2);
+    expect(queue._list.size).toBe(2);
     queue.dequeue();
     queue.dequeue();
-    expect(queue.size).toBe(0);
+    expect(queue._list.size).toBe(0);
   });
 
   it("throws an error if the queue is empty", function() {

@@ -1,89 +1,74 @@
-/** Node: node for a deque. */
 
-class Node {
-    constructor(val) {
-        this.val = val;
-        this.prev = null;
-        this.next = null;
-    }
-}
+const { Node, DoublyLinkedList } = require("./doublyLinkedList");
+
+/** Deque:  double-ended queue where you can add or remove from the front or the back.*/
 
 class Deque {
     constructor() {
-        this.front = null;
-        this.rear = null;
         this.size = 0;
+        this._list = new DoublyLinkedList();
     }
+
+/** appendFront(val): add new value to end of the structure. Returns undefined. */
+
     appendFront(val) {
-        const newNode = new Node(val);
-        if (!this.front) {
-            this.front = newNode;
-            this.rear = newNode;
-        }
-        newNode.next = this.front;
-        this.front.prev = newNode;
-        this.front = newNode;
-        
+        this._list.appendFront(val);
         this.size++;
     }
-    appendRear(val) {
-        const newNode = new Node(val);
-        if (!this.rear) {
-            this.front = newNode;
-            this.rear = newNode;
-        }
-        newNode.prev = this.rear;
-        this.rear.next = newNode;
-        this.rear = newNode;
 
+/** appendRear(val): add new value to end of the structure. Returns undefined. */
+
+    appendRear(val) {
+        this._list.appendRear(val);
         this.size++; 
     }
+
+/** popFront(): remove the node from the front of the structure and return its value. Throws an error if empty. */
+
     popFront() {
-        if (!this.front) {
+        if (!this._list.front) {
             throw new Error("Deque is empty. Cannot dequeue.")
         }
-        const removedNode = this.front;
-        this.front = this.front.next;
 
-        if (this.front) {
-            this.front.prev = null;
-        } else {
-            this.rear = null;
-        }
-
+        const removedNode = this._list.popFront();
         this.size--;
 
-        return removedNode.val;
+        return removedNode;
     }
+
+/** popRear(): remove the node from the rear of the structure and return its value. Throws an error if empty. */
+
     popRear() {
-        if (!this.rear) {
+        if (!this._list.rear) {
             throw new Error("Deque is empty. Cannot dequeue.")
         }
-        const removedNode = this.rear;
-        this.rear = this.rear.prev;
 
-        if (this.rear) {
-            this.rear.next = null;
-        } else {
-            this.front = null;
-        }
-
+        const removedNode = this._list.popRear();
         this.size--;
 
-        return removedNode.val
+        return removedNode;
     }
+
+/** peekFront(): return the value of the front node in the queue. */
+
     peekFront() {
-        if (!this.front) {
+        if (!this._list.front) {
             throw new Error("Deque is empty. Cannot peek from the front.")
         }
-        return this.front.val;
+        return this._list.peekFront();
     }
+
+/** peekRear(): return the value of the rear node in the queue. */
+
     peekRear() {
-        if (!this.front) {
+        if (!this._list.front) {
             throw new Error("Deque is empty. Cannot peek from the rear.")
         }
-        return this.rear.val;
+        return this._list.peekRear();
     }
+
+/** isEmpty(): return true if the queue is empty, otherwise false */
+
     isEmpty() {
         return this.size === 0;
     }

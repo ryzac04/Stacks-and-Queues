@@ -9,28 +9,28 @@ beforeEach(function() {
 describe("appendFront", function () {
     it("places the value at the front of the queue and returns undefined", function () {
         expect(deque.appendFront(10)).toBe(undefined);
-        expect(deque.front.val).toBe(10);
-        expect(deque.rear.val).toBe(10);
+        expect(deque._list.front.val).toBe(10);
+        expect(deque._list.rear.val).toBe(10);
         deque.appendFront(100);
-        expect(deque.front.val).toBe(100);
-        expect(deque.rear.val).toBe(10);
+        expect(deque._list.front.val).toBe(100);
+        expect(deque._list.rear.val).toBe(10);
         deque.appendFront(1000);
-        expect(deque.front.val).toBe(1000);
-        expect(deque.rear.val).toBe(10);
+        expect(deque._list.front.val).toBe(1000);
+        expect(deque._list.rear.val).toBe(10);
     });
 });
 
 describe("appendRear", function () {
     it("places the value at the rear of the queue and returns undefined", function () {
         expect(deque.appendRear(10)).toBe(undefined);
-        expect(deque.rear.val).toBe(10);
-        expect(deque.front.val).toBe(10);
+        expect(deque._list.rear.val).toBe(10);
+        expect(deque._list.front.val).toBe(10);
         deque.appendRear(100);
-        expect(deque.rear.val).toBe(100);
-        expect(deque.front.val).toBe(10);
+        expect(deque._list.rear.val).toBe(100);
+        expect(deque._list.front.val).toBe(10);
         deque.appendRear(1000);
-        expect(deque.rear.val).toBe(1000);
-        expect(deque.front.val).toBe(10);
+        expect(deque._list.rear.val).toBe(1000);
+        expect(deque._list.front.val).toBe(10);
     });
 });
 
@@ -40,11 +40,11 @@ describe("popFront", function () {
         deque.appendFront(20);
         deque.appendFront(30);
         deque.popFront();
-        expect(deque.size).toBe(2);
-        expect(deque.front.val).toBe(20);
+        expect(deque._list.size).toBe(2);
+        expect(deque._list.front.val).toBe(20);
         deque.popFront();
-        expect(deque.size).toBe(1);
-        expect(deque.front.val).toBe(10);
+        expect(deque._list.size).toBe(1);
+        expect(deque._list.front.val).toBe(10);
     });
 });
 
@@ -56,8 +56,8 @@ describe("popRear", function () {
         deque.appendRear(187);
         deque.popRear();
         deque.popRear();
-        expect(deque.size).toBe(2);
-        expect(deque.rear.val).toBe(100)
+        expect(deque._list.size).toBe(2);
+        expect(deque._list.rear.val).toBe(100)
     });
 });
 

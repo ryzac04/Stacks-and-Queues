@@ -1,33 +1,20 @@
-/** Node: node for a stack. */
 
-class Node {
-  constructor(val) {
-    this.val = val;
-    this.next = null;
-  }
-}
+const {Node, DoublyLinkedList } = require("./doublyLinkedList")
+
 
 /** Stack: chained-together nodes where you can
  *  remove from the top or add to the top. */
 
 class Stack {
   constructor() {
-    this.first = null;
-    this.last = null;
     this.size = 0;
+    this._list = new DoublyLinkedList();
   }
 
   /** push(val): add new value to end of the stack. Returns undefined. */
 
   push(val) {
-    const newNode = new Node(val)
-    if (!this.first) {
-      this.first = newNode;
-      this.last = newNode;
-    } 
-    newNode.next = this.first;
-    this.first = newNode;
-
+    this._list.appendFront(val);
     this.size++;
   }
 
@@ -35,29 +22,23 @@ class Stack {
    * and return its value. Should throw an error if the stack is empty. */
 
   pop() {
-    if (!this.first) {
+    if (!this._list.front) {
       throw new Error("Stack is empty. Cannot remove data.")
     }
 
-    const removedNode = this.first;
-    this.first = this.first.next;
-
-    if (!this.first) {
-      this.last = null
-    };
-
+    const removedNode = this._list.popFront();
     this.size--;
-    return removedNode.val;
 
+    return removedNode;
   }
 
   /** peek(): return the value of the first node in the stack. */
 
   peek() {
-    if (!this.first) {
+    if (!this._list.front) {
       throw new Error("Stack is empty. Cannot peek.")
     }
-    return this.first.val;
+    return this._list.peekFront();
   }
 
   /** isEmpty(): return true if the stack is empty, otherwise false */

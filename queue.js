@@ -1,33 +1,19 @@
-/** Node: node for a queue. */
 
-class Node {
-  constructor(val) {
-    this.val = val;
-    this.next = null;
-  }
-}
+const { Node, DoublyLinkedList } = require("./doublyLinkedList")
 
 /** Queue: chained-together nodes where you can
  *  remove from the front or add to the back. */
 
 class Queue {
   constructor() {
-    this.first = null;
-    this.last = null;
     this.size = 0;
+    this._list = new DoublyLinkedList();
   }
 
   /** enqueue(val): add new value to end of the queue. Returns undefined. */
 
   enqueue(val) {
-    const newNode = new Node(val);
-    if (!this.first) {
-      this.first = newNode;
-      this.last = newNode;
-    } 
-    this.last.next = newNode;
-    this.last = newNode;
-  
+    this._list.appendRear(val);
     this.size++;
   }
 
@@ -35,33 +21,24 @@ class Queue {
    * and return its value. Should throw an error if the queue is empty. */
 
   dequeue() {
-    if (!this.first) {
+    if (!this._list.front) {
       throw new Error("Queue is empty. Cannot dequeue.");
     }
 
-    const removedNode = this.first;
-    this.first = this.first.next;
-
-      // If only one element in queue, update last to null
-    if(!this.first) {
-      this.last = null;
-    }
-
+    const removedNode = this._list.popFront();
     this.size--;
 
-    return removedNode.val;
+    return removedNode;
   }
-
-
 
   /** peek(): return the value of the first node in the queue. */
 
   peek() {
-    if (!this.first) {
+    if (!this._list.front) {
       throw new Error("Queue is empty. Cannot peek.")
     }
 
-    return this.first.val;
+    return this._list.peekFront();
   }
 
   /** isEmpty(): return true if the queue is empty, otherwise false */

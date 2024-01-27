@@ -9,14 +9,14 @@ beforeEach(function() {
 describe("push", function() {
   it("places the value at the top of the stack and returns undefined", function() {
     expect(stack.push(10)).toBe(undefined);
-    expect(stack.first.val).toBe(10);
-    expect(stack.last.val).toBe(10);
+    expect(stack._list.front.val).toBe(10);
+    expect(stack._list.rear.val).toBe(10);
     stack.push(100);
-    expect(stack.first.val).toBe(100);
-    expect(stack.last.val).toBe(10);
+    expect(stack._list.front.val).toBe(100);
+    expect(stack._list.rear.val).toBe(10);
     stack.push(1000);
-    expect(stack.first.val).toBe(1000);
-    expect(stack.last.val).toBe(10);
+    expect(stack._list.front.val).toBe(1000);
+    expect(stack._list.rear.val).toBe(10);
   });
 });
 
@@ -27,10 +27,10 @@ describe("pop", function() {
     stack.push(1000);
     var removed = stack.pop();
     expect(removed).toBe(1000);
-    expect(stack.size).toBe(2);
+    expect(stack._list.size).toBe(2);
     stack.pop();
     stack.pop();
-    expect(stack.size).toBe(0);
+    expect(stack._list.size).toBe(0);
   });
 
   it("throws an error if the stack is empty", function() {
